@@ -1,0 +1,57 @@
+name: videohub
+services:
+- name: Gateway
+  project: src/Gateway/VideoHub.Gateway.Api/VideoHub.Gateway.Api.csproj
+  bindings:
+  - port: 5000
+  env:
+    - name: ASPNETCORE_ENVIRONMENT
+      value: development
+
+- name: Channels
+  project: src/Services/Channels/VideoHub.Services.Channels.Api/VideoHub.Services.Channels.Api.csproj
+  bindings:
+  - port: 5010
+  env:
+    - name: ASPNETCORE_ENVIRONMENT
+      value: development
+
+- name: Notifications
+  project: src/Services/Notifications/VideoHub.Services.Notifications.Api/VideoHub.Services.Notifications.Api.csproj
+  bindings:
+  - port: 5020
+  env:
+    - name: ASPNETCORE_ENVIRONMENT
+      value: development
+
+- name: Search
+  project: src/Services/Search/VideoHub.Services.Search.Api/VideoHub.Services.Search.Api.csproj
+  bindings:
+  - port: 5030
+  env:
+    - name: ASPNETCORE_ENVIRONMENT
+      value: development
+
+- name: Users
+  project: src/Services/Users/VideoHub.Services.Users.Api/VideoHub.Services.Users.Api.csproj
+  bindings:
+  - port: 5040
+  env:
+    - name: ASPNETCORE_ENVIRONMENT
+      value: development
+
+- name: Videos
+  project: src/Services/Videos/VideoHub.Services.Videos.Api/VideoHub.Services.Videos.Api.csproj
+  bindings:
+  - port: 5050
+  env:
+    - name: ASPNETCORE_ENVIRONMENT
+      value: development
+
+- name: Saga
+  project: src/Saga/VideoHub.Saga.Api/VideoHub.Saga.Api.csproj
+  bindings:
+  - port: 5090
+  env:
+    - name: ASPNETCORE_ENVIRONMENT
+      value: development

@@ -1,0 +1,43 @@
+@url = http://localhost:5010
+@accessToken = secret
+@channelId = 1
+@videoId = 1
+
+###
+GET {{url}}
+
+###
+GET {{url}}/channels
+
+###
+GET {{url}}/channels/{{channelId}}
+
+###
+POST {{url}}/channels
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+
+{
+    "name": "user1 next channel",
+    "description": "Lorem ipsum"
+}
+
+###
+DELETE {{url}}/channels/{{channelId}}
+Authorization: Bearer {{accessToken}}
+
+###
+POST {{url}}/channels/{{channelId}}/subscriptions
+Authorization: Bearer {{accessToken}}
+
+###
+DELETE {{url}}/channels/{{channelId}}/subscriptions
+Authorization: Bearer {{accessToken}}
+
+###
+POST {{url}}/channels/{{channelId}}/videos/{{videoId}}
+Authorization: Bearer {{accessToken}}
+
+###
+DELETE {{url}}/channels/{{channelId}}/videos/{{videoId}}
+Authorization: Bearer {{accessToken}}

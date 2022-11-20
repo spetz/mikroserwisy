@@ -1,0 +1,25 @@
+@url = http://localhost:5050
+@accessToken = secret
+@videoId = 1
+
+###
+GET {{url}}
+
+###
+GET {{url}}/videos
+
+###
+GET {{url}}/videos/{{videoId}}
+
+###
+POST {{url}}/videos
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+
+{
+    "title": "Video 1"
+}
+
+###
+DELETE {{url}}/videos/{{videoId}}
+Authorization: Bearer {{accessToken}}

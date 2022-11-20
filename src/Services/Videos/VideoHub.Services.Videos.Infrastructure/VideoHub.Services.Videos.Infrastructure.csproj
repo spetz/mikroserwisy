@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\..\Framework\Micro.Framework\Micro.Framework.csproj" />
+        <ProjectReference Include="..\VideoHub.Services.Videos.Core\VideoHub.Services.Videos.Core.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <InternalsVisibleTo Include="VideoHub.Services.Videos.Tests.Contract" />
+        <InternalsVisibleTo Include="VideoHub.Services.Videos.Tests.EndToEnd" />
+        <InternalsVisibleTo Include="VideoHub.Services.Videos.Tests.Integration" />
+    </ItemGroup>
+    
+</Project>

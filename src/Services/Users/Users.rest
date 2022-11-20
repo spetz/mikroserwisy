@@ -1,0 +1,56 @@
+@url = http://localhost:5040
+@email = user1@videohub.io
+@username = user1
+@password = secret
+@userId = 1
+
+###
+GET {{url}}
+
+###
+GET {{url}}/users
+
+###
+GET {{url}}/users/{{userId}}
+
+###
+GET {{url}}/users/{{userId}}/subscription
+
+###
+POST {{url}}/sign-up
+Content-Type: application/json
+
+{
+    "email": "{{email}}",
+    "username": "{{username}}",
+    "password": "{{password}}",
+    "role": "user"
+}
+
+###
+# @name sign_in
+POST {{url}}/sign-in
+Content-Type: application/json
+
+{
+    "email": "{{email}}",
+    "password": "{{password}}"
+}
+
+###
+@accessToken = {{sign_in.response.body.$.accessToken}}
+
+###
+GET {{url}}/me
+Authorization: Bearer {{accessToken}}
+
+###
+PUT {{url}}/users/{{userId}}/subscription
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+
+{
+    "sizeLimit": null,
+    "videosLimit": null,
+    "lengthLimit": null
+}

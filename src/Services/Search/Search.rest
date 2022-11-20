@@ -1,0 +1,17 @@
+@url = http://localhost:5030
+
+###
+GET {{url}}
+
+###
+GET {{url}}/search
+
+###
+POST {{url}}/search/items
+Content-Type: application/json
+
+{
+    "id": 1,
+    "kind": "user",
+    "data": "User"
+}

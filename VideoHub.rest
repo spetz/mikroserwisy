@@ -1,0 +1,24 @@
+@gatewayUrl = http://localhost:5000
+@channelsUrl = http://localhost:5010
+@notificationsUrl = http://localhost:5020
+@searchUrl = http://localhost:5030
+@usersUrl = http://localhost:5040
+@videosUrl = http://localhost:5050
+
+###
+GET {{gatewayUrl}}
+
+###
+GET {{channelsUrl}}
+
+###
+GET {{notificationsUrl}}
+
+###
+GET {{searchUrl}}
+
+###
+GET {{usersUrl}}
+
+###
+GET {{videosUrl}}

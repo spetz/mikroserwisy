@@ -1,0 +1,80 @@
+{
+  "reverseProxy": {
+    "routes": {
+      "channels": {
+        "clusterId": "channels",
+        "match": {
+          "path": "channels-service/{**catchall}"
+        },
+        "transforms": [
+          {
+            "pathPattern": "{**catchall}"
+          }
+        ]
+      },
+      "search": {
+        "clusterId": "search",
+        "match": {
+          "path": "search-service/{**catchall}"
+        },
+        "transforms": [
+          {
+            "pathPattern": "{**catchall}"
+          }
+        ]
+      },
+      "users": {
+        "clusterId": "users",
+        "match": {
+          "path": "users-service/{**catchall}"
+        },
+        "transforms": [
+          {
+            "pathPattern": "{**catchall}"
+          }
+        ]
+      },
+      "videos": {
+        "clusterId": "videos",
+        "match": {
+          "path": "videos-service/{**catchall}"
+        },
+        "transforms": [
+          {
+            "pathPattern": "{**catchall}"
+          }
+        ]
+      }
+    },
+    "clusters": {
+      "channels": {
+        "destinations": {
+          "destination1": {
+            "address": "http://localhost:5010"
+          }
+        }
+      },
+      "search": {
+        "destinations": {
+          "destination1": {
+            "address": "http://localhost:5020"
+          }
+        }
+      },
+      "users": {
+        "destinations": {
+          "destination1": {
+            "address": "http://localhost:5030"
+          }
+        }
+      },
+      "videos": {
+        "destinations": {
+          "destination1": {
+            "address": "http://localhost:5040"
+          }
+        }
+      }
+    }
+  }
+}
