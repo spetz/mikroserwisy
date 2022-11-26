@@ -19,7 +19,9 @@ app.MapGet("/ping", () => "pong").WithTags("API").WithName("Pong");
 app.UseMicroFramework();
 
 app.Subscribe()
-    .Event<SignedUp>()
-    .Event<SignedIn>();
+    .Event<ChannelAdded>()
+    .Event<ChannelSubscribed>()
+    .Event<ChannelUnsubscribed>()
+    .Event<ChannelDeleted>();
 
 app.Run();

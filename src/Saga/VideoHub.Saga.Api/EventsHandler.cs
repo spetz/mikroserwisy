@@ -5,8 +5,10 @@ using VideoHub.Saga.Api.Messages;
 namespace VideoHub.Saga.Api;
 
 internal sealed class EventsHandler :
-    IEventHandler<SignedUp>,
-    IEventHandler<SignedIn>
+    IEventHandler<ChannelAdded>,
+    IEventHandler<ChannelSubscribed>,
+    IEventHandler<ChannelUnsubscribed>,
+    IEventHandler<ChannelDeleted>
 {
     private readonly ISagaCoordinator _sagaCoordinator;
 
@@ -15,9 +17,15 @@ internal sealed class EventsHandler :
         _sagaCoordinator = sagaCoordinator;
     }
 
-    public Task HandleAsync(SignedUp @event, CancellationToken cancellationToken = default)
+    public Task HandleAsync(ChannelAdded @event, CancellationToken cancellationToken = default)
         => _sagaCoordinator.ProcessAsync(@event, SagaContext.Empty);
-
-    public Task HandleAsync(SignedIn @event, CancellationToken cancellationToken = default)
+    
+    public Task HandleAsync(ChannelSubscribed @event, CancellationToken cancellationToken = default)
+        => _sagaCoordinator.ProcessAsync(@event, SagaContext.Empty);
+    
+    public Task HandleAsync(ChannelUnsubscribed @event, CancellationToken cancellationToken = default)
+        => _sagaCoordinator.ProcessAsync(@event, SagaContext.Empty);
+    
+    public Task HandleAsync(ChannelDeleted @event, CancellationToken cancellationToken = default)
         => _sagaCoordinator.ProcessAsync(@event, SagaContext.Empty);
 }
