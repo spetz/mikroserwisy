@@ -1,4 +1,7 @@
 ﻿using System.Reflection;
+using Micro.Messaging.Brokers;
+using Micro.Messaging.RabbitMQ.Internals;
+using Micro.Observability.Metrics.Decorators;
 using Micro.Observability.Metrics.Jobs;
 using Micro.Observability.Metrics.Middlewares;
 using Microsoft.AspNetCore.Builder;
@@ -26,12 +29,18 @@ public static class Extensions
             return services;
         }
 
+        services.Decorate<IMessageBroker, MessageBrokerMetricsDecorator>();
+        services.Decorate<IMessageHandler, MessageHandlerMetricsDecorator>();
         services.AddSingleton<RequestMetricsMiddleware>();
         services.AddHostedService<RuntimeMetrics>();
         
         return services
             .AddOpenTelemetryMetrics(builder =>
             {
+                builder.AddAspNetCoreInstrumentation();
+                builder.AddRuntimeInstrumentation();
+                builder.AddHttpClientInstrumentation();
+                
                 foreach (var attribute in GetMeterAttributes())
                 {
                     if (attribute is not null)

@@ -13,14 +13,19 @@ internal sealed class RequestMetricsMiddleware : IMiddleware
 
     public async Task InvokeAsync(HttpContext context, RequestDelegate next)
     {
+        var tags = new KeyValuePair<string, object?>[]
+        {
+            new("http_method", context.Request.Method)
+        };
+        
         try
         {
             await next(context);
-            SuccessfulRequestsCounter.Add(1);
+            SuccessfulRequestsCounter.Add(1, tags);
         }
         catch
         {
-            FailedRequestsCounter.Add(1);
+            FailedRequestsCounter.Add(1, tags);
             throw;
         }
     }
