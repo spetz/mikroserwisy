@@ -57,21 +57,21 @@
       "search": {
         "destinations": {
           "destination1": {
-            "address": "http://localhost:5020"
+            "address": "http://localhost:5030"
           }
         }
       },
       "users": {
         "destinations": {
           "destination1": {
-            "address": "http://localhost:5030"
+            "address": "http://localhost:5040"
           }
         }
       },
       "videos": {
         "destinations": {
           "destination1": {
-            "address": "http://localhost:5040"
+            "address": "http://localhost:5050"
           }
         }
       }
