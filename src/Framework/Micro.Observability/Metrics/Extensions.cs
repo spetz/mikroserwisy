@@ -27,7 +27,7 @@ public static class Extensions
         }
 
         services.AddSingleton<RequestMetricsMiddleware>();
-        services.AddHostedService<SampleBackgroundMetrics>();
+        services.AddHostedService<RuntimeMetrics>();
         
         return services
             .AddOpenTelemetryMetrics(builder =>
