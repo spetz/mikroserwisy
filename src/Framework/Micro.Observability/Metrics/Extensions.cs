@@ -29,8 +29,8 @@ public static class Extensions
             return services;
         }
 
-        services.Decorate<IMessageBroker, MessageBrokerMetricsDecorator>();
-        services.Decorate<IMessageHandler, MessageHandlerMetricsDecorator>();
+        services.TryDecorate<IMessageBroker, MessageBrokerMetricsDecorator>();
+        services.TryDecorate<IMessageHandler, MessageHandlerMetricsDecorator>();
         services.AddSingleton<RequestMetricsMiddleware>();
         services.AddHostedService<RuntimeMetrics>();
         

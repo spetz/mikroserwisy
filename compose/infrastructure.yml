@@ -24,31 +24,31 @@ services:
   #   - 9998:9998
   #   - 9999:9999
 
-  grafana:
-    image: grafana/grafana
-    container_name: grafana
-    restart: unless-stopped
-    networks:
-      - videohub
-    ports:
-      - 3000:3000
-    # volumes:
-    #   - grafana:/var/lib/grafana
-
-  # jaeger:
-  #   image: jaegertracing/all-in-one
-  #   container_name: jaeger
+  # grafana:
+  #   image: grafana/grafana
+  #   container_name: grafana
   #   restart: unless-stopped
   #   networks:
   #     - videohub
   #   ports:
-  #     - 5775:5775/udp
-  #     - 5778:5778
-  #     - 6831:6831/udp
-  #     - 6832:6832/udp
-  #     - 9411:9411
-  #     - 14268:14268
-  #     - 16686:16686
+  #     - 3000:3000
+  #   # volumes:
+  #   #   - grafana:/var/lib/grafana
+
+  jaeger:
+    image: jaegertracing/all-in-one
+    container_name: jaeger
+    restart: unless-stopped
+    networks:
+      - videohub
+    ports:
+      - 5775:5775/udp
+      - 5778:5778
+      - 6831:6831/udp
+      - 6832:6832/udp
+      - 9411:9411
+      - 14268:14268
+      - 16686:16686
 
   mongo:
     image: mongo
@@ -78,16 +78,16 @@ services:
     volumes:
       - postgres:/var/lib/postgresql/data
 
-  prometheus:
-    build: ./prometheus
-    container_name: prometheus
-    restart: unless-stopped
-    networks:
-      - videohub
-    ports:
-      - 9090:9090
-    # volumes:
-    #   - prometheus:/prometheus
+  # prometheus:
+  #   build: ./prometheus
+  #   container_name: prometheus
+  #   restart: unless-stopped
+  #   networks:
+  #     - videohub
+  #   ports:
+  #     - 9090:9090
+  #   # volumes:
+  #   #   - prometheus:/prometheus
 
   rabbitmq:
     build: ./rabbitmq

@@ -83,6 +83,7 @@ public static class Extensions
             .UseAuthentication()
             .UseRouting()
             .UseMetrics()
+            .UseTracing()
             .UseAuthorization()
             .UseContextLogger()
             .UseSerilogRequestLogging()

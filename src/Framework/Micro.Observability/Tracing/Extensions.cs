@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Micro.Observability.Tracing.Middlewares;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using OpenTelemetry;
 using OpenTelemetry.Resources;
@@ -29,6 +31,8 @@ public static class Extensions
             throw new InvalidOperationException("Application name cannot be empty when using the tracing.");
         }
 
+        services.AddSingleton<SampleTracingMiddleware>();
+        
         services.AddOpenTelemetryTracing(builder =>
         {
             builder.SetResourceBuilder(ResourceBuilder.CreateDefault()
@@ -36,6 +40,7 @@ public static class Extensions
                     .AddEnvironmentVariableDetector()
                     .AddService(appName))
                 .AddSource(appName)
+                .AddSource(SampleTracingMiddleware.ActivitySourceName)
                 .AddAspNetCoreInstrumentation()
                 .AddHttpClientInstrumentation()
                 .AddSqlClientInstrumentation();
@@ -70,4 +75,7 @@ public static class Extensions
 
         return services;
     }
+
+    public static IApplicationBuilder UseTracing(this IApplicationBuilder app)
+        => app.UseMiddleware<SampleTracingMiddleware>();
 }
