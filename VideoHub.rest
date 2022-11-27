@@ -9,6 +9,9 @@
 GET {{gatewayUrl}}
 
 ###
+GET {{gatewayUrl}}/users-service/sign-up
+
+###
 GET {{channelsUrl}}
 
 ###

@@ -1,4 +1,5 @@
 using Micro.Framework;
+using Yarp.ReverseProxy.Transforms;
 
 var builder = WebApplication
     .CreateBuilder(args)
@@ -9,7 +10,16 @@ builder.Host
 
 builder.Services
     .AddReverseProxy()
-    .LoadFromConfig(builder.Configuration.GetRequiredSection("reverseProxy"));
+    .LoadFromConfig(builder.Configuration.GetRequiredSection("reverseProxy"))
+    .AddTransforms(transforms =>
+    {
+        transforms.AddRequestTransform(transform =>
+        {
+            var correlationId = $"{Guid.NewGuid():N}";
+            transform.ProxyRequest.Headers.Add("x-correlation-id", correlationId);
+            return ValueTask.CompletedTask;
+        });
+    });
 
 var app = builder.Build();
 

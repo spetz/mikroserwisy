@@ -1,3 +1,5 @@
+using Micro.Handlers;
+using Micro.Observability.Logging.Decorators;
 using Micro.Observability.Logging.Middlewares;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
@@ -20,6 +22,9 @@ public static class Extensions
     {
         services.Configure<SerilogOptions>(configuration.GetSection(SerilogSectionName));
         services.AddSingleton<ContextLoggingMiddleware>();
+
+        services.TryDecorate(typeof(IEventHandler<>), typeof(LoggingEventHandlerDecorator<>));
+        services.TryDecorate(typeof(ICommandHandler<>), typeof(LoggingCommandHandlerDecorator<>));
 
         return services;
     }
