@@ -49,7 +49,7 @@ public sealed class EndpointContract : IDisposable
             DefaultJsonSettings = SerializerSettings
         };
 
-        Pact = PactNet.Pact.V3(Consumer, Provider, config).WithHttpInteractions();
+        Pact = PactNet.Pact.V3(Consumer, Provider, config).WithHttpInteractions(Port);
         Verifier = new PactVerifier(new PactVerifierConfig
         {
             Outputters = new[] {new XUnitOutput(output)}
