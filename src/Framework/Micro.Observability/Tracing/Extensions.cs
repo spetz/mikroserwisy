@@ -1,4 +1,7 @@
-﻿using Micro.Observability.Tracing.Middlewares;
+﻿using Micro.Messaging.Brokers;
+using Micro.Messaging.RabbitMQ.Internals;
+using Micro.Observability.Tracing.Decorators;
+using Micro.Observability.Tracing.Middlewares;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -31,7 +34,9 @@ public static class Extensions
             throw new InvalidOperationException("Application name cannot be empty when using the tracing.");
         }
 
-        services.AddSingleton<SampleTracingMiddleware>();
+        services.AddSingleton<RequestTracingMiddleware>();
+        services.TryDecorate<IMessageBroker, MessageBrokerTracingDecorator>();
+        services.TryDecorate<IMessageHandler, MessageHandlerTracingDecorator>();
         
         services.AddOpenTelemetryTracing(builder =>
         {
@@ -40,7 +45,9 @@ public static class Extensions
                     .AddEnvironmentVariableDetector()
                     .AddService(appName))
                 .AddSource(appName)
-                .AddSource(SampleTracingMiddleware.ActivitySourceName)
+                .AddSource(RequestTracingMiddleware.ActivitySourceName)
+                .AddSource(MessageBrokerTracingDecorator.ActivitySourceName)
+                .AddSource(MessageHandlerTracingDecorator.ActivitySourceName)
                 .AddAspNetCoreInstrumentation()
                 .AddHttpClientInstrumentation()
                 .AddSqlClientInstrumentation();
@@ -77,5 +84,5 @@ public static class Extensions
     }
 
     public static IApplicationBuilder UseTracing(this IApplicationBuilder app)
-        => app.UseMiddleware<SampleTracingMiddleware>();
+        => app.UseMiddleware<RequestTracingMiddleware>();
 }
