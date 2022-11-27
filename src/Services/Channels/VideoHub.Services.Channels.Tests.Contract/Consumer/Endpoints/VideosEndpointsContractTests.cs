@@ -28,6 +28,7 @@ public class VideosEndpointsContractTests : IDisposable
             .WithJsonBody(new TypeMatcher(dto));
 
         await _endpointContract.Pact.VerifyAsync(_ => _apiClient.GetVideoAsync(dto.VideoId));
+        // await _endpointContract.PublishToPactBrokerAsync("1");
     }
 
     #region Arrange

@@ -22,6 +22,7 @@ public class ChannelsEndpointsContractTests : IDisposable
         _endpointContract.Verifier
             .ServiceProvider(_endpointContract.Provider, _testServer.Url)
             .WithFileSource(pactFile)
+            // .WithPactBrokerSource(_endpointContract.PactBrokerUrl)
             .WithSslVerificationDisabled()
             .Verify();
     }
