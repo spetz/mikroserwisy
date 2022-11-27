@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using Micro.Observability.Metrics.Jobs;
 using Micro.Observability.Metrics.Middlewares;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
@@ -25,7 +26,8 @@ public static class Extensions
             return services;
         }
 
-        services.AddSingleton<SampleMetricsMiddleware>();
+        services.AddSingleton<RequestMetricsMiddleware>();
+        services.AddHostedService<SampleBackgroundMetrics>();
         
         return services
             .AddOpenTelemetryMetrics(builder =>
@@ -68,7 +70,7 @@ public static class Extensions
             return app;
         }
 
-        app.UseMiddleware<SampleMetricsMiddleware>();
+        app.UseMiddleware<RequestMetricsMiddleware>();
         app.UseOpenTelemetryPrometheusScrapingEndpoint();
 
         return app;
